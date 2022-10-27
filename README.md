@@ -1,40 +1,39 @@
 # js-portfolio TO UNDERSTAND WEBPACK!
 
-# npm install webpack webpack-cli -D
-# You can use npx webpack --mode production 
+### npm install webpack webpack-cli -D
+### You can use npx webpack --mode production 
 
-# Or  Once you create file webpack.config.js and write that code --> module.exports = {
-#    entry: './src/index.js',
-#   output: {
-#        path: path.resolve(__dirname, 'dist'),
-#        filename: 'main.js',
-#    },
-#    resolve: {
-#        extensions: ['.js']
-#    },
+Or  Once you create file webpack.config.js and write that code --> module.exports = {
+    entry: './src/index.js',
+   output: {
+        path: path.resolve(__dirname, 'dist'),
+        filename: 'main.js',
+    },
+    resolve: {
+        extensions: ['.js']
+    },
+###     console npx webpack --mode production --config webpack.config.js
 
-#     console npx webpack --mode production --config webpack.config.js
+ Then add Babel, Babel allows the code to be runned in all browsers npm install babel-loader @babel/core @babel/preset-env @babel/plugin-transform-runtime --> will be added in package.json --> folloW the standar in software industry, create .babelrc 
+ {
+    "presets": [
+        "@babel/preset-env"  
+    ],
+    "plugins": [
+        "@babel/plugin-transform-runtime"
+    ]
+ }
 
-# Then add Babel, Babel allows the code to be runned in all browsers npm install babel-loader @babel/core @babel/preset-env @babel/plugin-transform-runtime --> will be added in package.json --> folloW the standar in software industry, create .babelrc 
-# {
-#    "presets": [
-#        "@babel/preset-env"  
-#    ],
-#    "plugins": [
-#        "@babel/plugin-transform-runtime"
-#    ]
-# }
+#### Then add module --> rules in webpack.config.js
 
-# Then add module --> rules in webpack.config.js
+ How to add HTML --> npm install html-webpack-plugin -D --> add to webpack.config.js by require fun. After module add plugins: -->  plugins: [
+       new HtmlWebpackPlugin({
+            inject: true,
+            template: './public/index.html',
+            filename: './index.html'
+        }),
 
-# How to add HTML --> npm install html-webpack-plugin -D --> add to webpack.config.js by require fun. After module add plugins: -->  plugins: [
-#        new HtmlWebpackPlugin({
-#            inject: true,
-#            template: './public/index.html',
-#            filename: './index.html'
-#        }),
-
-# Then delete script index.js because webpack will get it from dist folder
+### Then delete script index.js because webpack will get it from dist folder
 
 ### How to add CSS --> npm install mini-css-plugin css-loader -D --> delete link styles.css from HTML. 
  import in src/index.js './styles/main.css' and add to webpack.config new rule 
