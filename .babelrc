@@ -1,0 +1,10 @@
+//Add configurations after installing 
+//npm install babel-loader @babel/core @babel/preset-env @babel/plugin-transform-runtime -D 
+{
+    "presets": [
+        "@babel/preset-env"
+    ],
+    "plugins": [
+        "@babel/plugin-transform-runtime"
+    ]
+}
