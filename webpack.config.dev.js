@@ -2,11 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin'); //npm install html-webpack-plugin -D
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyPlugin = require('copy-webpack-plugin')//npm install copy-webpack-plugin -D 
-const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
-const TerserPlugin = require('terser-webpack-plugin')
 const DotEnv = require('dotenv-webpack');
-const { CleanWebpackPlugin} = require('clean-webpack-plugin');
-
 
 module.exports = {
     entry: './src/index.js',
@@ -15,6 +11,8 @@ module.exports = {
         filename: '[name].[contenthash].js', //Before adding CssMinimizer and Terser we had main.js
         assetModuleFilename: 'assets/images/[hash][ext][query]'
     },
+    mode: 'development',
+    watch: true, // --> keeps whatching changes
     resolve: {
         extensions: ['.js'],
         alias: {
@@ -82,13 +80,5 @@ module.exports = {
             ]
         }),
         new DotEnv(),
-        new CleanWebpackPlugin() // cleans files on dist folder
     ],
-    optimization :{
-        minimize: true,
-        minimizer: [
-            new CssMinimizerPlugin(),
-            new TerserPlugin(),
-        ]
-    }
 }

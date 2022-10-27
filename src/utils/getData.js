@@ -1,4 +1,5 @@
-const API = 'https://randomuser.me/api/';
+const API = process.env.API; // after adding npm install dotenv-webpack -D
+// users should not see this info.
 
 const getData = async (id) => {
   const apiURl = id ? `${API}${id}` : API;

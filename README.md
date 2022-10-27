@@ -26,7 +26,7 @@ Or  Once you create file webpack.config.js and write that code --> module.export
 
 #### Then add module --> rules in webpack.config.js
 
- How to add HTML --> npm install html-webpack-plugin -D --> add to webpack.config.js by require fun. After module add plugins: -->  plugins: [
+## How to add HTML --> npm install html-webpack-plugin -D --> add to webpack.config.js by require fun. After module add plugins: -->  plugins: [
        new HtmlWebpackPlugin({
             inject: true,
             template: './public/index.html',
@@ -35,7 +35,7 @@ Or  Once you create file webpack.config.js and write that code --> module.export
 
 ### Then delete script index.js because webpack will get it from dist folder
 
-### How to add CSS --> npm install mini-css-plugin css-loader -D --> delete link styles.css from HTML. 
+## How to add CSS --> npm install mini-css-plugin css-loader -D --> delete link styles.css from HTML. 
  import in src/index.js './styles/main.css' and add to webpack.config new rule 
  module: {
         rules:[
@@ -80,3 +80,81 @@ Or  Once you create file webpack.config.js and write that code --> module.export
  import gitHub from '../assets/images/github.png';
  import twiter from '../assets/images/twitter.png';
  import instagram from '../assets/images/instagram.png'
+
+
+## Google fonts
+
+In our styles.css we import our fonts from and url, also we have them in assets/fonts.
+
+A better way to do this is by adding in styles.css.
+
+@font-face {
+	font-family: 'Ubuntu';
+	src: url('../assets/fonts/ubuntu-regular.woff2') format('woff2'),
+		url('../assets/fonts/ubuntu-regular.woff') format('woff');
+		font-weight: 400;
+		font-style: normal;
+}
+
+### run npm install url-loader file-loader -D add to webpack.config.js / module -> rules
+
+{
+            test: /\.(woff|woff2)$/,
+            use : {
+                loader: 'url-loader',
+                options: {
+                    limit: 10000,
+                    mimetype: "application/font-woff",
+                    name: "[name].[ext]",
+                    outputPath: "./assets/fonts/",
+                    publicPath: "./assets/fonts/",
+                    esModule: false
+                }
+            }
+        }
+
+### Add to module.exports -> output
+ assetModuleFilename: 'assets/images/[hash][ext][query]'
+
+ DETELE IMPORT IN STYLES.CSS
+
+## Optimitazion: hash, compresion and min. files
+#### npm install css-minimizer-webpack-plugin terser-webpack-plugin -D 
+
+Add this lines after plugins
+optimization :{
+        minimize: true,
+        minimizer: [
+            new CssMinimizerPlugin(),
+            new TerserPlugin(),
+        ]
+    }
+
+    And in every "name" or "filename" add [name].[contenthash].extension 
+
+    ** In webpack file there's comments to help **
+
+## WebPack Alias
+It is used to replace import '../../../whatever' all dots and slashes
+In resolve, after extensions we add the following code.
+Each alias references a folder path.
+ resolve: {
+        extensions: ['.js'],
+        alias: {
+            '@utils': path.resolve(__dirname, 'src/utils/'),
+            '@templates': path.resolve(__dirname, 'src/templates/'),
+            '@styles': path.resolve(__dirname, 'src/styles/'),
+            '@images': path.resolve(__dirname, 'src/assets/images/'),
+        }
+    },
+
+#### The good thing is to replace relative path for an alias! @template/...     @styles/... 
+
+## Variables de entorno
+Create file .env --> don't push it to git ask leader team for var. and create ** .env-example ** --> this file is pushed to git without info.
+
+## npm install clean-webpack-plugin -D
+const { CleanWebpackPlugin} = require('clean-webpack-plugin'); in ** webpack.config.js ** and add plugin.
+
+Then change packaje.json scripts "dev" and "prod" 
+
